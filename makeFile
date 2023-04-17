@@ -1,0 +1,35 @@
+# Executable Names
+EXECUTABLE = finalproject
+TEST_EXECUTABLE = test
+
+# Object files needed for compilation
+MAIN_OBJECT = main.o
+OBJECTS = Airport.o main.o PageRank.o airport_graph.o Flight.o Djikstras.o BFS.o
+
+# Compilation Flags
+CXX = clang++
+CXXFLAGS = $(CS225) -std=c++14 -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
+LD = clang++
+LDFLAGS = -std=c++14 -stdlib=libc++ -lc++abi -lm
+
+# Custom Clang Enforcement
+include make/custom.mk
+
+# Define Makefile Rules
+.PHONY: all test clean output_msg
+
+all : $(EXECUTABLE)
+
+output_msg: ; $(CLANG_VERSION_MSG)
+
+$(EXECUTABLE): output_msg $(OBJECTS)
+	$(LD) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
+
+test: output_msg catch/catchmain.cpp tests/tests.cpp airport_graph.cpp Airport.cpp BFS.cpp Djikstras.cpp Flight.cpp PageRank.cpp
+	$(LD) catch/catchmain.cpp tests/tests.cpp airport_graph.cpp Airport.cpp BFS.cpp Djikstras.cpp Flight.cpp PageRank.cpp $(LDFLAGS) -o $(TEST_EXECUTABLE)
+
+clean:
+	-rm -f *.o $(EXECUTABLE) $(TEST_EXECUTABLE)
+
+
+
