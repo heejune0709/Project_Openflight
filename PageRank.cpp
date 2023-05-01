@@ -94,3 +94,35 @@ vector<double> PageRank::setup(){
     }
     return initial;
 }
+void PageRank::print_adjmatrix(){
+    cout<<"adj matrix"<<endl;
+    cout<<"      ";
+    for(int i = 0; i < this->num; i++){
+        cout<<this->title[i];
+        cout<<"           ";
+    }
+    cout<<"\n";
+    for(int i = 0; i < this->num; i++){
+        cout<<this->title[i];
+        cout<<"  ";
+        for(int j = 0; j < this->num; j++){
+            cout<<this->matrix_[i][j];
+            cout<<"  ";
+        } 
+        cout<<"\n";
+    }
+    cout<<"\n";
+}
+
+
+void PageRank::print_result(){
+    cout<<"page rank result\n"; 
+    cout<<" ID      value\n"; 
+    for(int i = 0; i < this->num; i++){
+        cout<<this->title[i];
+        cout<<" ";
+        cout<<this->result_[i];
+        cout<<"\n";
+    }
+    cout<<"\n";
+}

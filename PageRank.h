@@ -32,4 +32,10 @@ class PageRank
 
     //dimension of the adj matrix, namelist, initial vector and result vector
     int num;
+
+    //print adjmatrix
+    void print_adjmatrix();
+
+    //print the result vector
+    void print_result();
 };
