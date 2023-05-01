@@ -4,7 +4,7 @@ TEST_EXECUTABLE = test
 
 # Object files needed for compilation
 MAIN_OBJECT = main.o
-OBJECTS = Airport.o main.o PageRank.o airport_graph.o Flight.o Djikstras.o BFS.o
+OBJECTS = Airport.o main.o airport_graph.o Flight.o BFS.o
 
 # Compilation Flags
 CXX = clang++
