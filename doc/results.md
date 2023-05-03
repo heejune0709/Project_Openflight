@@ -1,0 +1,14 @@
+﻿# Results
+
+In our final project, we utilize OpenFlights datasets for airports and routes with the objective of identifying the shortest path between two city airports. We have successfully achieved this goal. We tested the shortest distance between "Newark Liberty International Airport" as the starting point and "Gold Coast Airport" as the destination, resulting in a total distance of 2022.58 km. Additionally, we strive to identify the most significant airports within our dataset and present them in a ranked order. We utilize airport and route data from the OpenFlights website database, converting the original data into arrays. The PageRank Algorithm is somewhat complex; we developed a PageRank.cpp file and initially employed the adjust(int num, double value) function to modify the adjacent matrix. As input, we used num as the matrix dimension to be set and stored, and value as a damping factor. From this, we obtained a modified adjacent matrix based on the damping factor and set the num of the pagerank object. One of our test case for this function creates a 2x2 adjacency matrix, initializing it with specific values, and resizing the title vector. After setting the num member variable to the matrix size, the adjust() function is called with a damping factor of 0.85. The test then checks if the matrix values have been updated correctly, ensuring that (0, 0) and (1, 0) equal 0.5, and the sum of (0, 1) and (1, 1) equals 1. If these conditions hold true, the test case passes, confirming the proper functioning of the adjust() function. Using this code, we applied the rank(vector initial, int time, bool normalize) function, which returns a vector of double. For the input, we used initial as the starting vector, time as the iteration time, and normalize to perform when true. Furthermore, we utilized the importance(int num) function to determine the top num important airports and return it as a vector of integer. It returns when the vector holds the ID of the top num important airports, and we can print the airport ID. We employ the BFS Algorithm for traversal and Dijkstra's Algorithm to find the shortest path. Consequently, we obtain five outcomes from the project:
+
+1.	BFS is a technique for traversing all graphs at a specific airport.
+2.	BFS is used to traverse the specified number of graph movements at a particular airport.
+3.	Traverse the graph from a given airport to the destination airport using BFS.
+4.	Compute the shortest route between two airports.
+5.	Examine the pager between the airports.
+
+In conclusion, this project provides valuable hands-on experience, enhancing our understanding of the code and teaching us how to work more systematically and collaborate more harmoniously with others. We have applied our learnings, continuously enriched our knowledge, and strived for ongoing improvement.
+
+
+

@@ -25,10 +25,7 @@ int main() {
         bool validDataset = false;
         
         while(validDataset == false){
-            /*
-            For using selected datasets Enter the data file (Routes of the file)
-            For example, ./tests/airport_sample.dat, ./tests/routes_sample.dat
-            */
+            // For using selected datasets Enter the data file 
             cout << "Enter \"default\" to construct graph using datasets from OpenFlights.org \nor enter name of airports dataset" << endl;
             string airportIn;
             cin >> airportIn;
@@ -41,7 +38,7 @@ int main() {
                 Graph airportGraph(airportFile, routesFile);
                 
                 if(airportGraph.getVertices().size() == 0){
-                    cout << "Empty graph constructed. Please input again:" << endl;
+                    cout << "Empty graph constructed. Rewrite input again:" << endl;
                 }else
                     validDataset = true;
             }
@@ -84,7 +81,7 @@ int main() {
                         string sourceAPName = it->second.getAirportName();
                         cout << "Printing out traversal from " << sourceAPName << ": " << endl;
                         for(unsigned i = 0; i < result_all.size(); i++){
-                            cout << result_all[i] << " --> ";
+                            cout << result_all[i] << " -> ";
                             if(i%4 == 0 && i != 0)
                                 cout << "" << endl;
                         }
@@ -116,7 +113,7 @@ int main() {
                         for(unsigned i = 0; i < result_moves.size(); i++){
                             cout << result_moves[i];
                             if(i != result_moves.size()-1)
-                                cout << " --> ";
+                                cout << " -> ";
                             if(i%4 == 0 && i != 0)
                                 cout << "" <<endl;
                         }
@@ -151,7 +148,7 @@ int main() {
                             for(unsigned i = 0; i < result_dest.size(); i++){
                                 cout << result_dest[i];
                                 if(i != result_dest.size()-1)
-                                    cout<< " --> ";
+                                    cout<< " -> ";
                                 if(i%4 == 0 && i != 0)
                                     cout << "" << endl;
                             }
@@ -218,15 +215,15 @@ int main() {
                 Graph airportGraph(airportFile, routesFile);
                 unordered_map<int, Airport> airportMap = airportGraph.getVertices();
                 if(true){
-                    PageRank *test = new PageRank();                      //create pagerank obj
-                    airportGraph.adjMatrix(test);                         //generate initial adjmatrix from graph
-                    test->adjust(test->num, 0.85);                         //finalize adjmatrix
-                    vector<double> initial = test->setup();      //generate initial vector 
-                    vector<double> re = test->rank(initial, 100, false);           //perform pagerank alg, 100 iteration                        
+                    PageRank *test = new PageRank();                       // create page rank object
+                    airportGraph.adjMatrix(test);                          // generate initial adjmatrix from graph
+                    test->adjust(test->num, 0.85);                         // finalize adjmatrix
+                    vector<double> initial = test->setup();                // generate initial vector 
+                    vector<double> re = test->rank(initial, 100, false);   // perform pagerank alg, 100 iteration                        
                     cout << "\nenter the number of the most important airport to be printed: \n";
                     int top;
                     cin >> top; 
-                    vector<int> id_rank = test->importance(top);           //pickout the top top important airport        
+                    vector<int> id_rank = test->importance(top);           
                 }
                 break;
             }

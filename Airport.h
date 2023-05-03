@@ -14,13 +14,13 @@ using namespace std;
 
 class Airport {
     public:
-        //constructors
+        // Constructors
         Airport();
         Airport(string &line);
         Airport(vector<string> airportVector);    
         Airport(int id, string name, string city, string country, double latitude, double longitude);
         
-        //getters
+        // Getters
         int getAirportID();
         string getAirportName();
         string getAirportCity();
@@ -28,9 +28,6 @@ class Airport {
         double getAirportLatitude();
         double getAirportLongitude();
 
-        //each airport how has an unordered map that records
-        //the ID of each adjacent airport and the corresponding flight
-        //it can be used as an adjacency list
         unordered_map<int, Flight> destAPs;
 
     private:

@@ -1,15 +1,16 @@
-#pragma once 
+#pragma once
 
 #include <vector>
-#include <string> 
+#include <string>
 #include <unordered_map>
 #include "Airport.h"
-// #include "PageRank.h"
+#include "PageRank.h"
 
-using namespace std; 
+using namespace std;
 
 class Graph {
     public:
+        //default constructor
         Graph();
         //constructor that accepts the airport and routes.dat files
         Graph(string & airportFile, string & routesFile);
@@ -32,11 +33,12 @@ class Graph {
         //function to harvest adjmatrix from a graph obj
         void adjMatrix(PageRank* pr_obj);
 
-    private: 
-        unordered_map<int, Airport> vertices; 
 
+    private:
         //functions that calculate the weight of an edge
         double calcWeight(int fromID, int toID);
         double radianConvert(double degree);
-
-}
+        
+        //each graph object hosts a map of airports to its corresponding ID
+        unordered_map<int, Airport> vertices;
+};

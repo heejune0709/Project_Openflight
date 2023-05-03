@@ -13,32 +13,25 @@
 using namespace std;
 
 
-//default constructor
-// hihis
-Graph::Graph(){
-
-}
+// Default
+Graph::Graph() {}
 
 
-//constructor with airport.dat and routes.dat
-//it calls the two helper functions
-Graph::Graph(std::string & airportFile, std::string & routesFile){
+// Constructor with airport.dat and routes.dat
+Graph::Graph(std::string & airportFile, std::string & routesFile) {
     insertAllVertices(airportFile);
     insertAllEdge(routesFile);
 }
 
 
-//construct the vertices 
-//such that each airport object is connected with its ID
-void Graph::insertVertex(int v, Airport ap)
-{
+// Construct the vertices so eeach airport object is connected with its ID
+void Graph::insertVertex(int v, Airport ap) {
     vertices[v] = ap;
 }
 
 
-//takes airport.dat and insert each airport into the class line by line
-void Graph::insertAllVertices(std::string & fileName)
-{
+// Insert each airport into the class line by line
+void Graph::insertAllVertices(std::string & fileName) {
     std::fstream file;
     file.open(fileName, ios::in);
     if (file.is_open()){   
@@ -60,17 +53,11 @@ void Graph::insertAllVertices(std::string & fileName)
 }
 
 
-//helper function that converts a line of flight data to a vector
-//this is a simplified version of the airport parsing counterpart
+// Helper function that converts a line of flight data to a vector
 std::vector<std::string> Graph::_createEdge(string & line){
-    //constructing a vector of strings of the flight information seperated by comma
-    //there is no quotation marks in any line, so the function does not consider it
-    //if input line does not contain all 8 columns, return a empty vector
     std::string currString = "";
     std::vector<std::string> flightVector;
 
-    //if a line has insufficient information, 
-    //discard the line by returning default vector
     int comma = 0;
     for(size_t i = 0; i < line.size(); ++i){
         char current = line[i];
@@ -83,14 +70,14 @@ std::vector<std::string> Graph::_createEdge(string & line){
         return flightVector;
     
     // Iterate through all characters in the line
-        //if a comma is detected, push the current string to the vector
-        //else if it's just a regular char, append it to the current string
     for(size_t i = 0; i < line.size(); ++i){
         char current = line[i];
+        //if a comma is detected, push the current string to the vector
         if(current == ',') {
             flightVector.push_back(currString);
             currString = "";
         }
+        //else if it's just a regular char, append it to the current string
         else
             currString += current;
     }
@@ -99,13 +86,13 @@ std::vector<std::string> Graph::_createEdge(string & line){
 }
 
 
-//helper function that creates an edge from a vector generated from above function
-    /*
-    before caculating weight, gotta check if source and destination airports are both inserted 
-    to avoid inserting an element into the map by using [] operator
-        if an edge to the same destination is not found in the list of adjacent airports
-        the find function returns the key of the desired element or the end iterator if the element is not found
-        only inserts when the flight does not exist in the adjacency list of the airport
+// Creates an edge from a vector generated from above function
+   /*
+        Prior to calculating the weight, ensure that both source and destination airports have been added.
+        This prevents inadvertently inserting an element into the map using the [] operator.
+        If an edge to the same destination is not found in the list of adjacent airports,
+        the find function returns the key of the desired element or the end iterator if the element is not found.
+        Insertion occurs only when the flight does not exist in the airport's adjacency list.
     */
 Flight Graph::createEdge(std::vector<std::string> flightVector){
     int source = stoi(flightVector[3], nullptr);
@@ -116,17 +103,17 @@ Flight Graph::createEdge(std::vector<std::string> flightVector){
         double weight = calcWeight(source, dest);
         return Flight(source, dest, weight);
     }
-    //if either airport is not inserted, return default constructed flight
+    // If either airport is not inserted, return default constructed flight
     return Flight();
 }
 
 
 /*
-inserts a single edge, calls the above two helper functions
-checks if the flight already exists before inserting
-    if an edge to the same destination is not found in the list of adjacent airports
-    the find function returns the key of the desired element or the end iterator if the element is not found
-    only inserts when the flight does not exist in the adjacency list of the airport
+    Inserts a single edge by invoking the two helper functions mentioned above.
+    Before inserting, the function verifies if the flight already exists.
+    If an edge to the same destination is absent in the list of adjacent airports,
+    the find function returns either the key of the desired element or the end iterator if the element is not found.
+    Insertion takes place only when the flight is not present in the airport's adjacency list.
 */
 void Graph::insertEdge(Flight f){       
     int source = f.getSourceId();
@@ -136,20 +123,15 @@ void Graph::insertEdge(Flight f){
         (vertices[source].destAPs)[dest] = f;
 }
 
-
-//similar to insert all vertices
-//iterates through routes.dat and insert flight for each line 
+// Iterates through routes.dat and insert flight for each line 
 void Graph::insertAllEdge(std::string & fileName){
     std::fstream file;
-    //open the file
     file.open(fileName, ios::in);
     if (file.is_open()){   
         std::string currLine;
                     
-        //iterate through each line of the file
         while(getline(file, currLine)){ 
             std::vector<std::string> currVect = _createEdge(currLine);
-            
             if(currVect != std::vector<std::string>()){
                 Flight f = createEdge(currVect);
                 Flight defaultF = Flight();
@@ -161,16 +143,15 @@ void Graph::insertAllEdge(std::string & fileName){
     }
 }
 
-
-//returns the unordered_map of airports
-//for testing: iterate though the unordered_map to see all inserted airports
+// Returns the unordered_map containing airports
+// For testing purposes: iterate through the unordered_map to view all added airports
 unordered_map<int, Airport> Graph::getVertices(){
     return vertices;
 }
 
 
-//returns the flights coming out of the given airport
-//for testing: iterate though the unordered_map to see inserted flights
+// Returns the flights departing from the given airport
+// For testing purposes: iterate through the unordered_map to view added flights
 unordered_map<int, Flight> Graph::adjVertWithWeight(int airportID) {
     auto it = vertices.find(airportID);
     if(it != vertices.end()){
@@ -189,11 +170,9 @@ string Graph::getAPName(int ID){
 }
 
 
-//Calculating distance between two coordinates
-//returns distance in KM
-//adapted from: https://www.geeksforgeeks.org/program-distance-two-points-earth/
-double Graph::calcWeight(int fromID, int toID){
-    //convert the latitude and longitude to radian
+// Citation: https://www.geeksforgeeks.org/program-distance-two-points-earth/
+double Graph::calcWeight(int fromID, int toID) {
+    // Converting the latitude and longitude to radian
     double lat1 = radianConvert(vertices[fromID].getAirportLatitude());
     double lon1 = radianConvert(vertices[fromID].getAirportLongitude());
     double lat2 = radianConvert(vertices[toID].getAirportLatitude());
@@ -202,7 +181,6 @@ double Graph::calcWeight(int fromID, int toID){
     double lonDiff = lon2 - lon1;
     double latDiff = lat2 - lat1;
     
-    //using Haversine Formula, R is radious of earth in KM
     long double ans = pow(sin(latDiff / 2), 2) +cos(lat1) * cos(lat2) * pow(sin(lonDiff / 2), 2);
     ans = 2 * asin(sqrt(ans));
     double R = 6371;
@@ -211,63 +189,57 @@ double Graph::calcWeight(int fromID, int toID){
 }
 
 
-//helper function to calcWeight ( M_PI is the constant of pi accurate to 1e-30
-double Graph::radianConvert(double degree)
-{
+// Helper function to calculate weight 
+double Graph::radianConvert(double degree) {
     long double one_deg = (M_PI) / 180;
     return (one_deg * degree);
 }
  
 
-//traversal graph to populate adj matrix for pagerank
-void Graph::adjMatrix(PageRank *pr_obj){
-
-    //determine and set the dimention
+// Traversal graph to populate adj matrix for pagerank
+void Graph::adjMatrix(PageRank *pr_obj) {
+    // Determine and set the dimention
     int size = vertices.size();
-    pr_obj->A.resize(size,vector<double>(size));
-    pr_obj->name_list.resize(size);
+    pr_obj->matrix_.resize(size,vector<double>(size));
+    pr_obj->title.resize(size);
     pr_obj->num = size;
 
-
-    //initialize obj matrix
-    for(int i = 0; i < size; i++){
+    // Initialize obj matrix
+    for(int i = 0; i < size; i++) {
         for(int j = 0; j < size; j++){
-            pr_obj->A[i][j] = 0.0;
+            pr_obj->matrix_[i][j] = 0.0;
         }        
     }
 
-    //populate the namelist of pagerank obj
+    // Populate the namelist of pagerank obj
     int x = 0;
     for(auto it = vertices.begin(); it != vertices.end(); ++it){
         if(it->second.getAirportID() == 0){
             continue;
         }
-        pr_obj->name_list[x] = (it->second.getAirportID());
+        pr_obj->title[x] = (it->second.getAirportID());
         x++;     
     }
     
-
-    /*check every flight of every airport
-    put the weight into the adj matrix according to the order of the namelist*/
+    // Examine each flight for every airport
+    // Insert the weight into the adjacency matrix based on the order specified in the name list
     x = 0;
     for(auto it = vertices.begin(); it != vertices.end(); ++it){
         if(x == size) break;
         if(it->second.getAirportID() == 0){
             continue;
         }
-
-        /*
-        check the flights of the current vertices/airport
-            & find out the proper place for the weight of the current flight according to the namelist
-        */
+        
+        // Inspect flights for the current vertex/airport
+        // Determine the appropriate position for the weight of the current flight based on the name list
         for(auto flight = it->second.destAPs.begin(); flight != it->second.destAPs.end(); ++flight){
             int y = 0;
-            for (auto temp = pr_obj->name_list.begin(); temp != pr_obj->name_list.end(); ++temp) {
+            for (auto temp = pr_obj->title.begin(); temp != pr_obj->title.end(); ++temp) {
                 if (*temp == flight->second.getDestId()) break;
                 y++;
             } 
             if(y == size) break;
-            pr_obj->A[y][x] = flight->second.getWeight();
+            pr_obj->matrix_[y][x] = flight->second.getWeight();
         }
         x++;
     }

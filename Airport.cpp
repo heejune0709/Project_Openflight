@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//default constructor: setting private variables to empty strings, double to 0.0
+// Default constructor
 Airport::Airport(){
     airport_id = 0;
     airport_name = "";
@@ -15,17 +15,16 @@ Airport::Airport(){
 }
 
 
-//constructor with matching variables
+// Constructor with matching variables
 Airport::Airport(int id, string name, string city, string country, double latitude, double longitude)
 : airport_id(id), airport_name(name), airport_city(city), airport_country(country), airport_latitude(latitude), airport_longitude(longitude) {  }
 
 
-//constructor with a single line from airport.dat
-//the ending \n is not in the input line
+// Constructor with a single line from airport.dat
 Airport::Airport(string &line){
-    //constructing a vector of strings of the airport information seperated by comma
-    //quotes are not included
-    //if input line does not contain all 13 columns, call default constructor 
+    // Build a vector of strings containing airport information separated by commas
+    // Exclude quotation marks
+    // If the input line lacks all 13 columns, call the default constructor
     bool quoteFlag = false;
     std::string currString = "";
     std::vector<std::string> airportVector;
@@ -34,44 +33,44 @@ Airport::Airport(string &line){
     for(size_t i = 0; i < line.size(); ++i){
         char current = line[i];
 
-        // if quotation mark has not occured before
-            /*
-            1.push the current string to the vector when encounters a ","
-            and reset current string
-            2. if current char is a quotation mark, turn on the quote flag
-            3.if just a regular char, append it to the current string
-            */
-        if(!quoteFlag) {
+        // If a quotation mark hasn't occurred before
+        if (!quoteFlag) {
+            // When encountering a ",", push the current string to the vector and reset the current string
             if(current == ',') {
                 airportVector.push_back(currString);
                 currString = "";
             }
-            else if(current == '"')
+            // If the current char is a quotation mark, set the quote flag to true
+            else if(current == '"') {
                 quoteFlag = true;
-            else
+            }
+            //  If it's just a regular char, append it to the current string
+            else {
                 currString += current;
+            }
         }
-        /*
-        if there is a quotation mark from before
-            1.if we are at the second quotation mark
-            2.if just a regular char, append it to the current string
-        */
+        
+        // If there is a quotation mark from before
         else{
+            // If we are at the second quotation mark
             if(current == '"' && i+1 < line.size()) {
                 if(line[i+1] == '"') {
                     currString += '"';
                     i++;
                 }
-                //don't add this quotation and turn off the flag
-                else
+                // Don't add this quotation and turn off the flag
+                else {
                     quoteFlag = false;
+                }
             }
-            else
+            // If just a regular char, append it to the current string
+            else {
                 currString += current;
+            }
         }
     }
     
-    //updating private variables
+    // Update Private variables
     airport_id = stoi(airportVector[0], nullptr);
     airport_name = airportVector[1];
     airport_city = airportVector[2];
@@ -81,20 +80,19 @@ Airport::Airport(string &line){
 }
 
 
-//vector constructor
-//note that the vector must be in the right order
-//such that the latitude and longitude must be vector[6] and vector[7]
+// Vector constructor
 Airport::Airport(vector<string> airportVector){
     airport_id = stoi(airportVector[0], nullptr);
     airport_name = airportVector[1];
     airport_city = airportVector[2];
     airport_country = airportVector[3];
+    // Latitude and longitude must be vector[6] and vector[7]
     airport_latitude = stod(airportVector[6], nullptr);
     airport_longitude = stod(airportVector[7], nullptr);
 }
 
 
-//getters
+// Getters: 
 int Airport::getAirportID() {
     return airport_id;
 }

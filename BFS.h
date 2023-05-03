@@ -16,6 +16,5 @@ class BFS {
         vector<string> traverseAirportsToDestination(int sourceAirport, int destinationAirport);
 
     private: 
-        Graph airport_graph; 
-        
-}
+        Graph airport_graph;        
+};

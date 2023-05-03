@@ -22,28 +22,35 @@ void PageRank::adjust(int num, double value) {
 }
 
 vector<double> PageRank::rank(vector<double> initial, int time, bool normalize) {
-    vector<double> check(initial);
-    vector<double> check2(initial.size());
-    for(int t = 0; t < time; t++) {
-        std::transform(matrix_.begin(), matrix_.end(), check.begin(), check2.begin(),
-            [](const auto& row, const auto& col) {
-                double sum = 0;
-                std::transform(row.begin(), row.end(), col.begin(), sum,
-                    [](const auto& a, const auto& b) { return a * b; });
-                return sum;
-            });
+    //vectors which stores the intermediate result
+    vector<double> temp = initial;
+    vector<double> newtemp = initial;
+    for(int t = 0; t < time; t++){
+        for(int i = 0; i < num; i++){
+            //initialize the vector
+            newtemp[i] = 0;
+            //calculate product of adjmatrix and vector 
+            for(int j = 0; j < num; j++){
+                newtemp[i] += matrix_[i][j] * temp[j];
 
-        if (normalize) {
-            double sum = std::accumulate(check2.begin(), check2.end(), 0.0,
-                [](const auto& a, const auto& b) { return a + b * b; });
-            double normalize_factor = sqrt(sum);
-            std::transform(check2.begin(), check2.end(), check2.begin(),
-                [normalize_factor](const auto& x) { return x / normalize_factor; });
+                if(normalize) {
+                    double sum = 0;
+                    //perform norm 2 normalize
+                    for(std::vector<double>::iterator it = newtemp.begin(); it != newtemp.end(); ++it)
+                        sum += (*it)*(*it);
+                    double normalize = sqrt(sum);
+
+                    for(int n = 0; n < num; n++){
+                        newtemp[n] = newtemp[n] / normalize;
+                    }
+                }
+            }     
         }
-        check = check2;
+        temp = newtemp;
     }
-    result_ = check;
-    return check;
+    //store result in the pagerank obj
+    result_ = temp;
+    return temp;
 }
 vector<int> PageRank::importance(int num) {
     vector<int> airport(num);

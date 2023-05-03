@@ -1,27 +1,29 @@
 #include "BFS.h"
 #include <climits> 
 
+// Constructor for BFS class
 BFS::BFS(const string &airportFile, const string &routeFile) {
     string a = airportFile; 
     string r = routeFile; 
     airport_graph = Graph (a, r);
 }
 
-// Returns a vector of strings with airport names visited in BFS order
-// This function returns all traversals of the disjoint set containing the source airport
+// Returns a vector of strings containing airport names visited in BFS order
+// This function traverses all aiports that contains the source airport 
 vector<string> BFS::traverseAllAirports(int sourceAirport) {
     vector<string> traversalResult;
     
-    // Declare a vector to track visited airports and initialize all to 'not visited'
+    // Initialize all to 'not visited' and declare a vector to track visited airports. 
     vector<bool> isVisited(14111, false);
     
-    // BFS initialization
+    
+    // Initialize BFS queue and mark the source airport as visited
     queue<int> airportQueue;
     airportQueue.push(sourceAirport);
     int currentAirport = sourceAirport;
     isVisited[currentAirport] = true;
     
-    // BFS using a queue
+    // Performing BFS with queue
     while (!airportQueue.empty()) {
         currentAirport = airportQueue.front();
         traversalResult.push_back(airport_graph.getAPName(currentAirport));
@@ -42,18 +44,18 @@ vector<string> BFS::traverseAllAirports(int sourceAirport) {
 vector<string> BFS::traverseAirportsWithMoves(int sourceAirport, int moves) {
     vector<string> traversalResult;
     
-    // Declare a vector to track visited airports and initialize all to 'not visited'
+    // Initialize all to 'not visited' and declare a vector to track visited airports. 
     vector<bool> isVisited(14111, false);
     
-    // BFS initialization
+    // Initialize BFS queue and mark the source airport as visited 
     queue<int> airportQueue;
     airportQueue.push(sourceAirport);
     int currentAirport = sourceAirport;
     isVisited[currentAirport] = true;
     
-    // BFS using a queue
+    // Performing BFS using a queue
     while (!airportQueue.empty()) {
-        // Stop traversing if the number of moves is reached
+        // If the number of moves is reached, stop
         if (traversalResult.size() == static_cast<unsigned>(moves) + 1) {
             return traversalResult;
         }
@@ -79,7 +81,7 @@ vector<string> BFS::traverseAirportsWithMoves(int sourceAirport, int moves) {
 vector<string> BFS::traverseAirportsToDestination(int sourceAirport, int destinationAirport) {
     vector<string> traversalResult;
     
-    // Declare a vector to track visited airports and initialize all to 'not visited'
+    // Initialize all to 'not visited' and declare a vector to track visited airports. 
     vector<bool> isVisited(14111, false);
     
     queue<int> airportQueue;
@@ -87,7 +89,7 @@ vector<string> BFS::traverseAirportsToDestination(int sourceAirport, int destina
     int currentAirport = sourceAirport;
     isVisited[currentAirport] = true;
     
-    // BFS using a queue
+    // Performing BFS using a queue
     while (!airportQueue.empty()) {
         currentAirport = airportQueue.front();
         
@@ -108,7 +110,7 @@ vector<string> BFS::traverseAirportsToDestination(int sourceAirport, int destina
         airportQueue.pop();
     }
     
-    // If the destination airport is not reached, return an empty vector
+    // Return an empty vector, if the destination airport is not reached. 
     if (currentAirport != destinationAirport) {
         return vector<string>();
     }
