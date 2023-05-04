@@ -1,39 +1,50 @@
 ﻿## Development Log
 
 **Week 1 (March 20 ~ March 26):**
-Development: We have finalized our 3 deliverables and completed the Team Contract and Project Proposal together. We have also divided the work accordingly and set up our computer environment. There was no harship for this week. 
+Development: Our team finalized the three deliverables, completed the Team Contract and Project Proposal, and assigned tasks accordingly. We also set up our computer environment. No difficulties were encountered this week.
 
-March 20th: Decided which dataset to use and discussed Team contract. 
-March 24th: Discussed the method of the algorithm to achieve our project goal.
-March 25th: Finalized our major deliverables, algorithms, and our timeline. We have also revised our Final Project Proposal and submitted it to PrairieLearn.
+- Goals: Finalize deliverables, complete Team Contract and Project Proposal, and set up computer environment.
+- Tasks: Deciding on the dataset, discussing the Team Contract, finalizing major deliverables, algorithms, and timeline, and submitting the Final Project Proposal.
+Problems: None.
+- Next week's plan: Discuss graph creation and finalize the initial repository and code structure outline.
+
 
 **Week 2 (March 27 ~ April 2)**
-Development: We firstly discuss about how to make graph and moved on to finalize the initial repository and code structure outline. 
+Development: We discussed graph creation and finalized the initial repository and code structure outline.
 
-March 28th: Complete converting data to proper array format and use the array data to graph format. 
-March 30th: Started individual work on implementing 3 different deliverables. 
+- Goals: Complete data conversion to array format and start individual work on implementing the three deliverables.
+- Tasks: Converting data to array format, creating graphs from array data, and starting work on the three deliverables.
+- Problems: None.
+- Next week's plan: Finalize BFS traversals and start Dijkstra's Algorithm while working on the PageRank Algorithm.
 
 **Week 3 (April 3 ~ April 9)**
-Development: We have met up with the deliverables we have implemented but we faced difficulties in making the make file and testing out if our method was correctly implemented. We have decided to reasearch on this so we can debug later. 
+Development: We implemented the deliverables but faced difficulties creating the Makefile and verifying our methods. We decided to research this for debugging later.
 
-April 4th: Try to finalize BFS traversals and start Dijkstra’s as Page rank algorithm was still in progress. 
-April 6th: Try to finalize Dijstra’s with a verification test. Modification on BFS traversals if needed but both didn't work as we faced some difficulties making makefile. 
+- Goals: Finalize BFS traversals and start Dijkstra's Algorithm.
+Tasks: Attempting to finalize BFS traversals and Dijkstra's Algorithm with verification tests, but encountered Makefile issues.
+- Problems: Difficulties creating Makefile.
+- Next week's plan: Finalize the Airport class and prepare for the midway project check.
 
 **Week 4 (April 10 ~ April 16)**
-Development: We have finalized our airport class and was still figuring out the makefile. Moreover, for midpoint check up, we have finalized our 2 deliverables and got ready to present our progress. 
+Development: We finalized our Airport class and continued working on the Makefile. We also completed two deliverables for the midway project check.
 
-April 11th: Finish the airport class. 
-April 13th: Ready for the midway check for our project. Modify algorithms if necessary. 
+- Goals: Finish the Airport class and prepare for the midway project check.
+- Tasks: Completing the Airport class and preparing for the midway project check by finalizing two deliverables.
+- Problems: Makefile difficulties persisted.
+- Next week's plan: Complete all three deliverables and write test cases.
 
 **Week 5 (April 17 ~ April 23)**
-Development: After meeting our mentor, we were able to finalize all 3 deliverables and tested out if they were working the right way. However, due to shortage of time we have decided to give up on making visualizations and focus more on completing the project itself. 
+Development: After meeting with our mentor, we finalized all three deliverables and tested their functionality. However, due to time constraints, we decided to forgo visualizations and focus on project completion.
 
-April 18th: Try writing complete test cases for testing out the project as a whole. 
-April 20th: Make main.cpp -> testing the codes to get result
+- Goals: Write complete test cases and work on main.cpp.
+- Tasks: Writing test cases for the entire project and working on main.cpp to test the code and obtain results.
+- Problems: Limited time for visualizations.
+- Next week's plan: Draw conclusions, write the final report, and prepare for the presentation.
 
 **Week 6 (April 24 ~ May 5)**
-Development: 
+Development: Finalized our project to be ready for final submission. 
 
-April 24th: Try to draw conclusion and write for final report. 
-May 2nd: Final review from the beginning and get ready for the presentation. 
-May 4th: Complete the project and submit it.
+- Goals: Complete the project, write the final report, and prepare for the presentation.
+- Tasks: Drawing conclusions, writing the final report, reviewing progress, and completing the project.
+- Problems: None.
+Next week's plan: Project submission and presentation.
