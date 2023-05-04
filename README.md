@@ -11,7 +11,9 @@ Using BFS class and Dijkstra class which is our first and second major deliverab
 Using PageRank class, we ranked the importance of each airport in the path throughout PageRank algorithm.
 
 2)How to build and run.
+
   Excutable:
+  
     a.First build the target 'all' in the Makefile typing "make all" in terminal.
     b.Execute program typing "./openflight"
     c.Type "default" to use the default dataset
