@@ -62,6 +62,28 @@ TEST_CASE("Test Pagerank with high priority airport") {
     REQUIRE(2 == rank[2]);
 }
 
+TEST_CASE("Test Pagerank functionality - adjust()") {
+    PageRank *test = new PageRank();
+    int temp = 2;
+    test->matrix_.resize(temp,vector<double>(temp));
+
+    //to test normalize(column sum == 1)
+    test->matrix_[0][0] = 0.0;
+    test->matrix_[1][0] = 0.0;
+
+    //to test normalize and dampling factor
+    test->matrix_[0][1] = 4.0;   
+    test->matrix_[1][1] = 6.0;  
+
+    test->title.resize(temp);
+    test->num = temp;
+
+    test->PageRank::adjust(temp, 0.85);
+    REQUIRE(0.5 == test->matrix_[0][0]);
+    REQUIRE(0.5 == test->matrix_[1][0]);
+    REQUIRE(1 == test->matrix_[0][1] + test->matrix_[1][1]);
+}
+
 TEST_CASE("Test Pagerank rank functionality") { 
     cout << "\n\n > Testing Pagerank rank functionality!: \n" << endl;
     PageRank *test = new PageRank();
