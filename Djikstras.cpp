@@ -3,21 +3,20 @@
 using namespace std;
 
 
-/* 
-*	Djikstras(Graph airports, string OgAirport, string DtAirport)
-*	Description: Implementation of Djikstra's algorithm for finding the shortest path between airports.
-*	input: airports -- Graph of the connecting airports
-*	       OgAirport -- the starting airport
-*	       DtAirport -- the destination airport
-*	return: N/A
-*/
+// `Djikstras::Djikstras(Graph airports, string OgAirport, string DtAirport)
+
+// This is the implementation of the constructor for the Djikstras class. 
+// It initializes various data structures such as 
+// `zip_dist`, `prev_node`, `visited`, `adj`, and `Qu` 
+// It runs Dijkstra's algorithm to find the shortest path between the two airports. 
+// The result is stored in `zip_path` and `path` member variables!
+
 Djikstras::Djikstras(Graph airports, string OgAirport, string DtAirport) {
     zip_path.clear();
-
     vector<string> vert;  
-
     unordered_map<int, Airport> mapAirport = airports.getVertices();
 
+    // Initializing data structures for each airport
     for (auto it = mapAirport.begin(); it != mapAirport.end(); ++it) {
         vert.push_back(it->second.getAirportName());
         if(it->second.getAirportName() == OgAirport) {
@@ -33,18 +32,21 @@ Djikstras::Djikstras(Graph airports, string OgAirport, string DtAirport) {
     }
 
     pair<double,string> init = make_pair(0.0, OgAirport);
-
     Qu.push(init);
 
-    for(auto it = mapAirport.begin(); it != mapAirport.end(); ++it) {
+    // Storing adjacency lists for each airport
+    for (auto it = mapAirport.begin(); it != mapAirport.end(); ++it) {
         adj.insert(make_pair(it->second.getAirportName(), it->second.destAPs));
     }
 
-    while(Qu.top().second != DtAirport) {
+    // Dijkstra's algorithm
+    while (Qu.top().second != DtAirport) {
         pair<double, string> curr = Qu.top();
         Qu.pop();
         vector<pair<int , double>> near = getAdj(curr.second);
         vector<pair<string, double>> nearBy;
+        
+        // Converting neighboring airport IDs to airport names
         for (auto n : near) {
             for (auto it = mapAirport.begin(); it != mapAirport.end(); ++it) {
                 if (n.first == it->first) {
@@ -52,6 +54,8 @@ Djikstras::Djikstras(Graph airports, string OgAirport, string DtAirport) {
                 }
             }
         }
+
+        // Updating shortest distances to neighboring airports
         for (auto b : nearBy) {
             if (visited[b.first] == false && visited[curr.second] == false) {
                 double weight = b.second;
@@ -64,44 +68,42 @@ Djikstras::Djikstras(Graph airports, string OgAirport, string DtAirport) {
         }
         visited[curr.second] = true;
     }
- 
+
+    // Storing shortest path and distance
     path = zip_dist[DtAirport];
     string air = DtAirport;
     zip_path.push_back(DtAirport);
 
-    while(air != OgAirport) {
+    while (air != OgAirport) {
         zip_path.push_back(prev_node[air]);
         air = prev_node[air];
     }
-
     reverse(zip_path.begin(), zip_path.end());
 }
 
-/* 
-*	getShortDist()
-*	Description: getter function
-*	return: gets the path distance from the starting airport to the destination airport
-*/
+// double Djikstras::getShortDist() const
+
+// This function is a getter function that returns 
+// the shortest distance between the starting and destination airports.
+
 double Djikstras::getShortDist() const {
   return path;
 }
 
-/* 
-*	getPathVert()
-*	Description: getter function
-*	return: gets all of the airports along the path
-*/
+// `vector<string> Djikstras::getPathVert() const`
+
+// This function is a getter function that returns a vector of strings representing the names of all the airports 
+// along the shortest path from the starting airport to the destination airport.
+
 vector<string> Djikstras::getPathVert() const {
   return zip_path;
 }
 
-/* 
-*	getAdjacent(string Name)
-*	Description: This function finds all of the neighboring airports to the input airport 
-    and returns a vector of the neighboring airport and its flight distance from the input airport.
-*	input: Name -- the name of the airport as a string
-*	return: a vector of pairs of neighboring airports and their respective distances from the input airport
-*/
+// `vector<pair<int, double>> Djikstras::getAdj(string Name)`
+
+// This function takes in a string `Name` representing the name of an airport and returns a vector of pairs, 
+// where each pair represents a neighboring airport and its flight distance from the input airport.
+
 vector<pair<int, double>> Djikstras::getAdj(string Name) {
     auto check = adj.find(Name);
 
@@ -118,12 +120,12 @@ vector<pair<int, double>> Djikstras::getAdj(string Name) {
     }
 }
 
-/* 
-*	vertexExists(string name)
-*	Description: This function ensures that an airport exists in the adjacency list.
-*	input: name -- the name of the airport as a string
-*	return: boolean that indicate whether the vertex exist or not
-*/
+// `bool Djikstras::checkVertex(string name)`
+
+// This is a helper function that takes in a string `name` representing the name of an airport 
+// and checks whether it exists in the adjacency list. 
+// It returns a boolean value indicating whether the vertex exists or not.
+
 bool Djikstras::checkVertex(string name) {
     if (adj.find(name) == adj.end()) {
         return false;
